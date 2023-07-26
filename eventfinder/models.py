@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
 
 
 #Event Category Model
@@ -16,6 +18,7 @@ class County(models.Model):
 
 #Event Model
 class Event(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollment_users', null=True)
     categoryId = models.ForeignKey(EventCategory, on_delete=models.CASCADE, related_name='category_set')
     countyId = models.ForeignKey(County, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -25,7 +28,7 @@ class Event(models.Model):
     location_y = models.DecimalField(max_digits=9999, decimal_places=8)
     imageUrl = models.TextField()
     description = models.TextField()
-    ticketPrice = models.DecimalField(max_digits=9, decimal_places=2)
+    ticketPrice = models.DecimalField(max_digits=9, decimal_places=2, null=True)
     address = models.TextField()
     def __str__(self):
         return self.title

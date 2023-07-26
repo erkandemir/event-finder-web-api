@@ -28,7 +28,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'eventcategory', EventCategoryViewSet, basename='eventcategory')
 router.register(r'eventcounty', CountyViewSet, basename='eventcounty')
-router.register(r'event', EventViewSet, basename='event')
+router.register(r'event', EventViewSet, basename='eventcounty')
 router.register(r'eventfavorite', EventFavoriteViewSet, basename='eventfavorite')
 router.register(r'eventattendence', EventAttendenceViewSet, basename='eventattendence')
 
