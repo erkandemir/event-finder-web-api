@@ -25,6 +25,8 @@ class EventAdmin(admin.ModelAdmin):
     
     def get_queryset(self, request):
         qs = super(EventAdmin, self).get_queryset(request)
+        if(request.user.is_superuser):
+            return qs
         return qs.filter(author=request.user)
     
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
