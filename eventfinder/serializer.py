@@ -13,10 +13,21 @@ class EventCountySerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class EventSerializer(serializers.ModelSerializer):
+    fav_data = serializers.SerializerMethodField()
     class Meta:
         model = Event
         fields = ['id', 'categoryId', 'countyId', 'title', 'event_date', 'place_name',
-                  'location_x', 'location_y', 'imageUrl', 'description', 'ticketPrice', 'address']
+                  'location_x', 'location_y', 'imageUrl', 'description', 'ticketPrice', 'address', 'fav_data']
+        
+        
+
+    def get_fav_data(self, obj):
+        favourites = EventFavorite.objects.filter(eventId__id = obj.id)
+        if(favourites.count() > 0):
+            return EventFavoriteSerializer(favourites[0]).data
+        else:
+            return None
+        
         
 class EventAttendanceSerializer(serializers.ModelSerializer):
     class Meta:

@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import permissions
+from rest_framework import serializers
 from rest_framework import viewsets
 from rest_framework.viewsets import ModelViewSet 
 from rest_framework.decorators import action
@@ -25,7 +26,8 @@ class EventViewSet(ModelViewSet):
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
     queryset = Event.objects.all()
-    filterset_fields = ['categoryId', 'event_date']
+    filterset_fields = {'categoryId':  ['exact'],
+                         'event_date': ['gte', 'lte', 'exact']}
     serializer_class = EventSerializer
    
     @action(detail=True, methods=['get'],url_path='attendence_count', url_name='attendence_count')
@@ -36,7 +38,7 @@ class EventViewSet(ModelViewSet):
             return Response({"'eventId' : {eventId} 'attendenceCount': {count}".format(eventId= event.id, count=count)})
         return None
     
-
+        
 class EventFavoriteViewSet(ModelViewSet):
     permission_classes = [permissions.AllowAny]
     queryset = EventFavorite.objects.all()

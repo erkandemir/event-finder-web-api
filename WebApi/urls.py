@@ -28,14 +28,13 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'eventcategory', EventCategoryViewSet, basename='eventcategory')
 router.register(r'eventcounty', CountyViewSet, basename='eventcounty')
-router.register(r'event', EventViewSet, basename='eventcounty')
+router.register(r'event', EventViewSet, basename='event')
 router.register(r'eventfavorite', EventFavoriteViewSet, basename='eventfavorite')
 router.register(r'eventattendence', EventAttendenceViewSet, basename='eventattendence')
 
-urlpatterns = [
+urlpatterns = [ 
     path('api-auth/', include('rest_framework.urls')),
-    path('admin/', admin.site.urls),
-    
+    path('admin/', admin.site.urls)
 ]
 
 urlpatterns += router.urls
