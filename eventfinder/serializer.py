@@ -22,7 +22,8 @@ class EventSerializer(serializers.ModelSerializer):
         
 
     def get_fav_data(self, obj):
-        favourites = EventFavorite.objects.filter(eventId__id = obj.id)
+        _userdeviceid = self.context.get('userdeviceid')
+        favourites = EventFavorite.objects.filter(eventId__id = obj.id, userDeviceId =_userdeviceid)
         if(favourites.count() > 0):
             return EventFavoriteSerializer(favourites[0]).data
         else:

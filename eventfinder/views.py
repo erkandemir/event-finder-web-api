@@ -37,6 +37,11 @@ class EventViewSet(ModelViewSet):
             count = Event.objects.filter(eventattendance__eventId = event.id).count()
             return Response({"'eventId' : {eventId} 'attendenceCount': {count}".format(eventId= event.id, count=count)})
         return None
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["userdeviceid"] = self.request.query_params.get('userdeviceid')
+        return context
+        
     
         
 class EventFavoriteViewSet(ModelViewSet):
