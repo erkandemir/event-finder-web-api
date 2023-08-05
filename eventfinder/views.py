@@ -25,7 +25,7 @@ class CountyViewSet(ModelViewSet):
 class EventViewSet(ModelViewSet):
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
-    queryset = Event.objects.all()
+    queryset = Event.objects.all().order_by('event_date')
     filterset_fields = {'categoryId':  ['exact'],
                          'event_date': ['gte', 'lte', 'exact']}
     serializer_class = EventSerializer
